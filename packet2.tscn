@@ -1,0 +1,115 @@
+[gd_scene load_steps=14 format=3 uid="uid://flh22foalkeo"]
+
+[ext_resource type="Script" uid="uid://wypjcm5l53t2" path="res://packet.gd" id="1_5ssnp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j17mq"]
+albedo_color = Color(0, 0.478431, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ssnp"]
+material = SubResource("StandardMaterial3D_j17mq")
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ssnp"]
+cull_mode = 1
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_76mi2"]
+material = SubResource("StandardMaterial3D_5ssnp")
+size = Vector3(1.05, 0.26, 1.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4qol1"]
+shading_mode = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_1yvo5"]
+material = SubResource("StandardMaterial3D_4qol1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_76mi2"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4qol1"]
+material = SubResource("StandardMaterial3D_76mi2")
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1yvo5"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qm1kd"]
+material = SubResource("StandardMaterial3D_1yvo5")
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ivnwo"]
+albedo_color = Color(0.666667, 0.317647, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cllt3"]
+material = SubResource("StandardMaterial3D_ivnwo")
+size = Vector3(1, 0.25, 1)
+
+[node name="packet" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 2
+mass = 0.001
+gravity_scale = 0.0
+script = ExtResource("1_5ssnp")
+
+[node name="eth_header" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.225, 0)
+mesh = SubResource("BoxMesh_5ssnp")
+
+[node name="eth_label" type="Label3D" parent="eth_header"]
+transform = Transform3D(-1, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -1, 0, 0, -0.51)
+text = "eth"
+
+[node name="eth_outline" type="MeshInstance3D" parent="eth_header"]
+visible = false
+mesh = SubResource("BoxMesh_76mi2")
+
+[node name="eth_info" type="MeshInstance3D" parent="eth_header/eth_outline"]
+transform = Transform3D(-1, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -1, -1.4, 0, -0.708)
+mesh = SubResource("QuadMesh_1yvo5")
+skeleton = NodePath("../..")
+
+[node name="eth_info_label" type="Label3D" parent="eth_header/eth_outline/eth_info"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.372075, 0.410424, 0.000999987)
+text = "foo"
+font_size = 16
+horizontal_alignment = 0
+vertical_alignment = 0
+
+[node name="ip_header" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.15, 0)
+mesh = SubResource("BoxMesh_4qol1")
+
+[node name="ip_label" type="Label3D" parent="ip_header"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.51)
+text = "ip"
+
+[node name="ip_outline" type="MeshInstance3D" parent="ip_header"]
+visible = false
+mesh = SubResource("BoxMesh_76mi2")
+skeleton = NodePath("../../eth_header")
+
+[node name="tcp_header" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.075, 0)
+mesh = SubResource("BoxMesh_qm1kd")
+
+[node name="tcp_label" type="Label3D" parent="tcp_header"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.51)
+text = "tcp"
+
+[node name="tcp_outline" type="MeshInstance3D" parent="tcp_header"]
+visible = false
+mesh = SubResource("BoxMesh_76mi2")
+skeleton = NodePath("../../eth_header")
+
+[node name="data" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("BoxMesh_cllt3")
+
+[node name="data_label" type="Label3D" parent="data"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.51)
+text = "data"
+
+[node name="data_outline" type="MeshInstance3D" parent="data"]
+visible = false
+mesh = SubResource("BoxMesh_76mi2")
+skeleton = NodePath("../../eth_header")

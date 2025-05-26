@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://opoq782jx282"]
+
+[ext_resource type="Script" uid="uid://cgk7g6tpd4xg5" path="res://host_label.gd" id="1_0wu4t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_87kjm"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0wu4t"]
+material = SubResource("StandardMaterial3D_87kjm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0r1x"]
+cull_mode = 1
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_p3hcb"]
+material = SubResource("StandardMaterial3D_c0r1x")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_by7ma"]
+
+[node name="host" type="RigidBody3D"]
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_0wu4t")
+
+[node name="outline" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_p3hcb")
+
+[node name="collisionshape" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_by7ma")
+
+[node name="label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+billboard = 1
+text = "Foo"
+script = ExtResource("1_0wu4t")

@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkv4vje5lnykv"]
+
+[ext_resource type="Script" uid="uid://k7aocwkc4ppl" path="res://player.gd" id="1_f3sb7"]
+[ext_resource type="Environment" uid="uid://k5wdkl4pr321" path="res://world.tres" id="1_fj7yv"]
+[ext_resource type="Script" uid="uid://cm7x7ixwtkgqr" path="res://world.gd" id="1_tlwt5"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gv5m4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f3sb7"]
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_tlwt5")
+
+[node name="light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.43122, 0.902247, 0, -0.902247, 0.43122, 0, 9.02499, 4.99424)
+
+[node name="environment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_fj7yv")
+
+[node name="floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(30, 1, 30)
+
+[node name="wall1" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 15)
+use_collision = true
+size = Vector3(30, 3, 1)
+
+[node name="wall2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -15)
+use_collision = true
+size = Vector3(30, 3, 1)
+
+[node name="wall3" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 0.5, 0)
+use_collision = true
+size = Vector3(30, 3, 1)
+
+[node name="wall4" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0.5, 0)
+use_collision = true
+size = Vector3(30, 3, 1)
+
+[node name="player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_f3sb7")
+
+[node name="mesh" type="MeshInstance3D" parent="player"]
+visible = false
+mesh = SubResource("CapsuleMesh_gv5m4")
+
+[node name="collisionshape" type="CollisionShape3D" parent="player"]
+shape = SubResource("CapsuleShape3D_f3sb7")
+
+[node name="head" type="Node3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39807, 0)
+
+[node name="camera" type="Camera3D" parent="player/head"]
+
+[node name="ray" type="RayCast3D" parent="player/head/camera"]
+target_position = Vector3(0, 0, -4)
+collision_mask = 3
+
+[node name="hand" type="Node3D" parent="player/head/camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
