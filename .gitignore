@@ -17,5 +17,12 @@ mono_crash.*.json
 
 /android/
 addons/
+screenshots/
 # used by .NET stuff
 .editorconfig 
+
+# Godot exports
+export_presets.cfg
+vrshark1.*
+vrshark_demo.zip
+
