@@ -20,6 +20,8 @@ VRshark has three development phases: 3D, VR, and AR.
 As a prototype, VRshark is developed as a 3D game with keyboard and mouse controls.
 When the core functionality and traffic representation in a 3D space has been
 established, then the project will be ported to VR, and then finally AR.
+Currently, the project is in the prototype (3D) phase and will later be tagged
+as "prototype" when moving forward to VR and AR.
 
 The core functionality includes being able to read a PCAP-file, spawning objects
 representing hosts, relocating said objects, and controlling the playback of the
@@ -30,10 +32,21 @@ traffic with visual representations of the packets which can be inspected closer
 The playback controller should be able to play/pause as well as step both forwards and
 backwards through the PCAP-file at different speeds.
 
+## How to run
+1. Install [Godot](https://godotengine.org/)
+2. Clone this repository
+	- `git clone git@github.com:Arcnilya/vrshark.git`
+3. Start Godot and open the `vrshark` project directory
+4. Click the "play-arrow" in the top right or press F5
+
 
 ## TODO
 - [x] Fix readme
 - [x] Directory structure
+- [x] How to run
 - [ ] Cleanup code
-- [ ] How to develop/run
-- [ ] Implement HUD
+	- [x] Increase packet speed
+	- [x] Make packet inspect simpler
+	- [ ] Make pcap location dynamic
+- [ ] Playback GUI/HUD
+- [ ] Tag current version as "prototype"

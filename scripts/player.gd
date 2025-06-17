@@ -9,7 +9,7 @@ const BOB_AMP = 0.05
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.01
 const HOST_SCENE_PATH = "res://scenes/host.tscn"
-const PACKET_SCENE_PATH = "res://scenes/packet3.tscn"
+const PACKET_SCENE_PATH = "res://scenes/packet.tscn"
 
 var t_bob = 0.0
 var speed
@@ -29,13 +29,12 @@ var ctrl_pressed_last_frame = false
 	
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("left_click"):
-		if selected_object == null:
+		if selected_object != null:
+			selected_object = null # De-select object
+		else:
 			var collider = interaction.get_collider()
 			if collider != null and collider is RigidBody3D:
 				selected_object = collider
-		elif selected_object != null:
-			if selected_object != null:
-				selected_object = null
 
 
 func _ready():
@@ -101,6 +100,7 @@ func _physics_process(delta: float) -> void:
 		if last_host_outline: last_host_outline.visible = false
 	
 	# When left_click
+	# TODO: Implement packet details toggle
 	if selected_object != null:
 		if selected_object.scene_file_path == HOST_SCENE_PATH:
 			# Lift host cube
@@ -113,8 +113,9 @@ func _physics_process(delta: float) -> void:
 			if outline:
 				if last_packet_outline and last_packet_outline != outline: # Click new packet
 					last_packet_outline.visible = false
-				outline.visible = true
+				outline.visible = !outline.visible
 				last_packet_outline = outline
+				selected_object = null
 	
 			
 

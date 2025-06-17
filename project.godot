@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="vrshark1"
+config/name="vrshark"
 run/main_scene="uid://bkv4vje5lnykv"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"

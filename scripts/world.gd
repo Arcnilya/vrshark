@@ -4,7 +4,7 @@ signal pause_changed(paused: bool)
 signal reverse_changed(reversed: bool)
 
 @export var playback_speed: float = 1.0
-@export var packet_speed: float = 2.0
+@export var packet_speed: float = 5.0
 
 var packet_reader = PacketReader.new()
 var hosts = {} # Stored MAC -> host instance mapping
@@ -125,8 +125,8 @@ func format_pkt_info(pkt):
 	return info
 	
 func spawn_packet(source_host, destination_host, pkt):
-	var packet = preload("res://scenes/packet3.tscn").instantiate()
-	var label = packet.get_node("outline").get_node("panel").get_node("label")
+	var packet = preload("res://scenes/packet.tscn").instantiate()
+	var label = packet.get_node("outline").get_node("label")
 	if label: label.text = "\n".join(format_pkt_info(pkt))
 	connect("pause_changed", Callable(packet, "_on_pause_changed"))
 	connect("reverse_changed", Callable(packet, "_on_reverse_changed"))
