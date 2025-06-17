@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b382ujx2bta7q"]
 
-[ext_resource type="Script" uid="uid://wypjcm5l53t2" path="res://packet.gd" id="1_iyeno"]
+[ext_resource type="Script" uid="uid://wypjcm5l53t2" path="res://scripts/packet.gd" id="1_2phi7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xs2cq"]
 albedo_color = Color(0, 1, 1, 1)
@@ -46,7 +46,7 @@ cache/0/10/0/scale = 1.0
 [node name="RigidBody3D" type="RigidBody3D"]
 mass = 0.001
 gravity_scale = 0.0
-script = ExtResource("1_iyeno")
+script = ExtResource("1_2phi7")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)

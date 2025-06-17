@@ -13,7 +13,7 @@ var is_paused = false
 var is_reversed = false
 
 func _ready() -> void:
-	packet_reader.read_pcap("res://web.pcap")
+	packet_reader.read_pcap("res://pcaps/web.pcap")
 	spawn_hosts()
 	
 func _process(delta: float) -> void:
@@ -91,7 +91,7 @@ func spawn_hosts():
 	for i in range(host_keys.size()):
 		var src_mac = host_keys[i]
 		var src_ip = extracted_hosts[src_mac]
-		var host = preload("res://host.tscn").instantiate()
+		var host = preload("res://scenes/host.tscn").instantiate()
 		var label = host.get_node("label")
 		if label: label.text = "%s\n%s" % [src_ip, src_mac]
 		var angle = (TAU / host_keys.size()) * i
@@ -125,7 +125,7 @@ func format_pkt_info(pkt):
 	return info
 	
 func spawn_packet(source_host, destination_host, pkt):
-	var packet = preload("res://packet3.tscn").instantiate()
+	var packet = preload("res://scenes/packet3.tscn").instantiate()
 	var label = packet.get_node("outline").get_node("panel").get_node("label")
 	if label: label.text = "\n".join(format_pkt_info(pkt))
 	connect("pause_changed", Callable(packet, "_on_pause_changed"))

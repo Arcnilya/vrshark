@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ckr5brtxk8000"]
 
-[ext_resource type="Script" uid="uid://wypjcm5l53t2" path="res://packet.gd" id="1_7wo6q"]
-[ext_resource type="Script" uid="uid://d0d84i3hunwq0" path="res://packet_label.gd" id="1_an3gc"]
+[ext_resource type="Script" uid="uid://wypjcm5l53t2" path="res://scripts/packet.gd" id="1_eg03o"]
+[ext_resource type="Script" uid="uid://d0d84i3hunwq0" path="res://scripts/packet_label.gd" id="2_t2q2w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7wo6q"]
 albedo_color = Color(0, 0.407843, 1, 1)
@@ -19,7 +19,7 @@ material = SubResource("StandardMaterial3D_ikljk")
 [node name="packet" type="RigidBody3D"]
 mass = 0.001
 gravity_scale = 0.0
-script = ExtResource("1_7wo6q")
+script = ExtResource("1_eg03o")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
@@ -34,4 +34,4 @@ mesh = SubResource("BoxMesh_pge5u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 billboard = 1
 text = "Foo"
-script = ExtResource("1_an3gc")
+script = ExtResource("2_t2q2w")

@@ -1,21 +1,21 @@
 [gd_scene load_steps=6 format=3 uid="uid://bkv4vje5lnykv"]
 
-[ext_resource type="Script" uid="uid://k7aocwkc4ppl" path="res://player.gd" id="1_f3sb7"]
-[ext_resource type="Environment" uid="uid://k5wdkl4pr321" path="res://world.tres" id="1_fj7yv"]
-[ext_resource type="Script" uid="uid://cm7x7ixwtkgqr" path="res://world.gd" id="1_tlwt5"]
+[ext_resource type="Script" uid="uid://cm7x7ixwtkgqr" path="res://scripts/world.gd" id="1_4wyf3"]
+[ext_resource type="Environment" uid="uid://k5wdkl4pr321" path="res://world.tres" id="2_k0juu"]
+[ext_resource type="Script" uid="uid://k7aocwkc4ppl" path="res://scripts/player.gd" id="3_71j4m"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gv5m4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f3sb7"]
 
 [node name="world" type="Node3D"]
-script = ExtResource("1_tlwt5")
+script = ExtResource("1_4wyf3")
 
 [node name="light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.43122, 0.902247, 0, -0.902247, 0.43122, 0, 9.02499, 4.99424)
 
 [node name="environment" type="WorldEnvironment" parent="."]
-environment = ExtResource("1_fj7yv")
+environment = ExtResource("2_k0juu")
 
 [node name="floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -44,7 +44,7 @@ size = Vector3(30, 3, 1)
 
 [node name="player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("1_f3sb7")
+script = ExtResource("3_71j4m")
 
 [node name="mesh" type="MeshInstance3D" parent="player"]
 visible = false

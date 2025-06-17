@@ -8,8 +8,8 @@ const BOB_FREQ = 2.0
 const BOB_AMP = 0.05
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.01
-const HOST_SCENE_PATH = "res://host.tscn"
-const PACKET_SCENE_PATH = "res://packet3.tscn"
+const HOST_SCENE_PATH = "res://scenes/host.tscn"
+const PACKET_SCENE_PATH = "res://scenes/packet3.tscn"
 
 var t_bob = 0.0
 var speed

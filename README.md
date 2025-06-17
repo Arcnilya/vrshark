@@ -29,8 +29,7 @@ backwards through the PCAP-file at different speeds.
 
 ## TODO
 - [x] Fix readme
-- [ ] Directory structure
+- [x] Directory structure
 - [ ] Cleanup code
-- [ ] Push executable
 - [ ] How to develop/run
 - [ ] Implement HUD
