@@ -8,8 +8,8 @@ const BOB_FREQ = 2.0
 const BOB_AMP = 0.05
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.01
-const HOST_SCENE_PATH = "res://scenes/host.tscn"
-const PACKET_SCENE_PATH = "res://scenes/packet.tscn"
+const HOST_SCENE = "res://scenes/host.tscn"
+const PACKET_SCENE = "res://scenes/packet.tscn"
 
 var t_bob = 0.0
 var speed
@@ -37,8 +37,8 @@ func _input(_event: InputEvent) -> void:
 				selected_object = collider
 
 
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+#func _ready():
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	var ctrl_pressed = Input.is_action_pressed("control")
@@ -88,7 +88,7 @@ func _physics_process(delta: float) -> void:
 	var collider = interaction.get_collider()
 	if collider == null:
 		if last_host_outline: last_host_outline.visible = false
-	elif collider.scene_file_path == HOST_SCENE_PATH:
+	elif collider.scene_file_path == HOST_SCENE:
 		# Highlight host cube
 		var outline = collider.get_node_or_null("outline")
 		if outline:
@@ -102,12 +102,12 @@ func _physics_process(delta: float) -> void:
 	# When left_click
 	# TODO: Implement packet details toggle
 	if selected_object != null:
-		if selected_object.scene_file_path == HOST_SCENE_PATH:
+		if selected_object.scene_file_path == HOST_SCENE:
 			# Lift host cube
 			var a = selected_object.global_transform.origin
 			var b = hand.global_transform.origin
 			selected_object.set_linear_velocity((b-a) * grab_power)
-		elif selected_object.scene_file_path == PACKET_SCENE_PATH:
+		elif selected_object.scene_file_path == PACKET_SCENE:
 			# Highlight packet cube
 			var outline = selected_object.get_node_or_null("outline")
 			if outline:

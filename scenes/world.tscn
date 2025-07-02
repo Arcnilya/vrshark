@@ -11,6 +11,12 @@
 [node name="world" type="Node3D"]
 script = ExtResource("1_4wyf3")
 
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+
 [node name="light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.43122, 0.902247, 0, -0.902247, 0.43122, 0, 9.02499, 4.99424)
 

@@ -3,6 +3,7 @@ extends Node3D
 signal pause_changed(paused: bool)
 signal reverse_changed(reversed: bool)
 
+@onready var file_dialog := $FileDialog
 @export var playback_speed: float = 1.0
 @export var packet_speed: float = 5.0
 
@@ -12,8 +13,18 @@ var current_index = -1
 var is_paused = false
 var is_reversed = false
 
+const PACKET_SCENE = "res://scenes/packet.tscn"
+const HOST_SCENE = "res://scenes/host.tscn"
+
 func _ready() -> void:
-	packet_reader.read_pcap("res://pcaps/web.pcap")
+	file_dialog.filters = ["*.pcap ; PCAP Files"]
+	file_dialog.popup_centered()  # Show on start-up
+	file_dialog.file_selected.connect(_on_file_selected)
+	
+func _on_file_selected(path: String):
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	print("Selected PCAP file: %s" % path)
+	packet_reader.read_pcap(path)
 	spawn_hosts()
 	
 func _process(delta: float) -> void:
@@ -44,6 +55,10 @@ func get_hosts(src, dst):
 func process_packet():
 	if is_paused:
 		return
+	for child in get_children():
+		if child.scene_file_path == PACKET_SCENE:
+			# Found a packet in transit, block request
+			return
 	if is_reversed:
 		current_index -= 1
 		if current_index < 0:
@@ -91,7 +106,7 @@ func spawn_hosts():
 	for i in range(host_keys.size()):
 		var src_mac = host_keys[i]
 		var src_ip = extracted_hosts[src_mac]
-		var host = preload("res://scenes/host.tscn").instantiate()
+		var host = preload(HOST_SCENE).instantiate()
 		var label = host.get_node("label")
 		if label: label.text = "%s\n%s" % [src_ip, src_mac]
 		var angle = (TAU / host_keys.size()) * i
@@ -125,7 +140,7 @@ func format_pkt_info(pkt):
 	return info
 	
 func spawn_packet(source_host, destination_host, pkt):
-	var packet = preload("res://scenes/packet.tscn").instantiate()
+	var packet = preload(PACKET_SCENE).instantiate()
 	var label = packet.get_node("outline").get_node("label")
 	if label: label.text = "\n".join(format_pkt_info(pkt))
 	connect("pause_changed", Callable(packet, "_on_pause_changed"))
