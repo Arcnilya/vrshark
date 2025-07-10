@@ -31,12 +31,16 @@ func _process(delta: float) -> void:
 	var hud_index = get_node("HUD/Index")
 	hud_index.text = "%s/%s" % [current_index+1, packet_reader.packets.size()]
 	if Input.is_action_just_pressed("step_forward"):
-		if is_reversed == true:
+		if is_packet_in_transit():
+			return
+		if is_reversed == true and current_index != -1:
 			current_index -= 1
 		is_reversed = false
 		emit_signal("reverse_changed", is_reversed)
 		process_packet()
 	if Input.is_action_just_pressed("step_backward"):
+		if is_packet_in_transit():
+			return
 		if is_reversed == false:
 			current_index += 1
 		is_reversed = true
@@ -47,6 +51,12 @@ func _process(delta: float) -> void:
 		emit_signal("pause_changed", is_paused)
 	if Input.is_action_just_pressed("escape"):
 		toggle_pause()
+		
+func is_packet_in_transit():
+	for child in get_children():
+		if child.scene_file_path == PACKET_SCENE:
+			return true
+	return false
 		
 func toggle_pause():
 	if get_tree().paused:
@@ -80,10 +90,6 @@ func get_hosts(src, dst):
 func process_packet():
 	if is_paused:
 		return
-	for child in get_children():
-		if child.scene_file_path == PACKET_SCENE:
-			# Found a packet in transit, block request
-			return
 	if is_reversed:
 		current_index -= 1
 		if current_index < 0:
