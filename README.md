@@ -1,6 +1,9 @@
 # VRshark
+
+<img src="screenshots/vrshark-logo.png" width=200 align="left"/><br>
 VRshark is an application for visualizing network traffic in 3D, written in the
 Godot game engine using mainly GDScript.  
+<br clear="left"/>
 
 <img src="screenshots/prototype-vrshark2.png" alt="image" width="700" height="auto">  
 
