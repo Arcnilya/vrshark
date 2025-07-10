@@ -22,7 +22,9 @@ mono_crash.*.json
 addons/
 binaries/
 export_presets.cfg
-pcaps/
+
+pcaps/*
+!pcaps/
 !pcaps/web.pcap
 
 *.pck

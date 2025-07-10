@@ -45,15 +45,10 @@ backwards through the PCAP-file at different speeds.
 
 
 ## TODO
-- [x] Fix readme
-- [x] Directory structure
-- [x] How to run
-- [x] Cleanup code
-- [x] Increase packet speed
-- [x] Make packet inspect simpler
-- [x] Make pcap location dynamic
-- [x] Make playback stepper block spam
-- [x] Playback GUI/HUD
-- [x] Controls/Tutorial
-- [x] New screenshots/video
-- [ ] Tag current version as "prototype"
+- [ ] Move to VR
+    - [ ] New HUD/GUI
+- [ ] Represent packet size
+- [ ] Represent packet type with colors
+- [ ] Extend playback controller
+    - [ ] Continuous play
+    - [ ] Speed up and slow down
