@@ -11,6 +11,15 @@
 [node name="world" type="Node3D"]
 script = ExtResource("1_4wyf3")
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Index" type="Label" parent="HUD"]
+offset_left = 30.0
+offset_right = 320.0
+offset_bottom = 108.0
+theme_override_font_sizes/font_size = 50
+text = "Foo"
+
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
 ok_button_text = "Open"

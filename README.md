@@ -45,9 +45,11 @@ backwards through the PCAP-file at different speeds.
 - [x] Directory structure
 - [x] How to run
 - [x] Cleanup code
-	- [x] Increase packet speed
-	- [x] Make packet inspect simpler
-	- [x] Make pcap location dynamic
-	- [x] Make playback stepper block spam
-- [ ] Playback GUI/HUD
+- [x] Increase packet speed
+- [x] Make packet inspect simpler
+- [x] Make pcap location dynamic
+- [x] Make playback stepper block spam
+- [x] Playback GUI/HUD
+- [ ] Controls/Tutorial
+- [ ] New screenshots/video
 - [ ] Tag current version as "prototype"

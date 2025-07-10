@@ -28,6 +28,8 @@ func _on_file_selected(path: String):
 	spawn_hosts()
 	
 func _process(delta: float) -> void:
+	var hud_index = get_node("HUD/Index")
+	hud_index.text = "%s/%s" % [current_index+1, packet_reader.packets.size()]
 	if Input.is_action_just_pressed("step_forward"):
 		is_reversed = false
 		emit_signal("reverse_changed", is_reversed)
@@ -63,11 +65,13 @@ func process_packet():
 		current_index -= 1
 		if current_index < 0:
 			print("Playback complete, reached start")
+			current_index = -1
 			return	
 	else:
 		current_index += 1
 		if current_index >= packet_reader.packets.size():
 			print("Playback complete, reached end")
+			current_index = packet_reader.packets.size()-1
 			return
 	
 	var pkt = packet_reader.packets[current_index]
