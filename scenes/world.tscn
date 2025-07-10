@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkv4vje5lnykv"]
+[gd_scene load_steps=7 format=3 uid="uid://bkv4vje5lnykv"]
 
 [ext_resource type="Script" uid="uid://cm7x7ixwtkgqr" path="res://scripts/world.gd" id="1_4wyf3"]
 [ext_resource type="Environment" uid="uid://k5wdkl4pr321" path="res://world.tres" id="2_k0juu"]
 [ext_resource type="Script" uid="uid://k7aocwkc4ppl" path="res://scripts/player.gd" id="3_71j4m"]
+
+[sub_resource type="GDScript" id="GDScript_4wyf3"]
+script/source = "extends Panel
+
+	"
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gv5m4"]
 
@@ -19,6 +24,60 @@ offset_right = 320.0
 offset_bottom = 108.0
 theme_override_font_sizes/font_size = 50
 text = "Foo"
+
+[node name="PauseMenu" type="Panel" parent="HUD"]
+process_mode = 2
+visible = false
+offset_left = 165.0
+offset_top = 99.0
+offset_right = 965.0
+offset_bottom = 523.0
+script = SubResource("GDScript_4wyf3")
+
+[node name="MenuText" type="Label" parent="HUD/PauseMenu"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 34.0
+offset_right = 699.0
+offset_bottom = 378.0
+text = "Movement: 
+- Walk: WASD
+- Look: MOUSE
+
+Playback controls:
+- Step forward: E
+- Step backward: Q
+- Pause: SPACE
+
+Interact:
+- Pick up host: LMB
+- Drop host: LMB
+- View packet info: LMB"
+
+[node name="Button" type="Button" parent="HUD/PauseMenu"]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 358.0
+offset_right = 431.0
+offset_bottom = 395.0
+text = "Close"
+
+[node name="Crosshair" type="Label" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
@@ -76,6 +135,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39807, 0)
 [node name="ray" type="RayCast3D" parent="player/head/camera"]
 target_position = Vector3(0, 0, -4)
 collision_mask = 3
+debug_shape_thickness = 1
 
 [node name="hand" type="Node3D" parent="player/head/camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[connection signal="pressed" from="HUD/PauseMenu/Button" to="." method="_on_button_pressed"]

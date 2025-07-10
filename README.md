@@ -50,6 +50,6 @@ backwards through the PCAP-file at different speeds.
 - [x] Make pcap location dynamic
 - [x] Make playback stepper block spam
 - [x] Playback GUI/HUD
-- [ ] Controls/Tutorial
+- [x] Controls/Tutorial
 - [ ] New screenshots/video
 - [ ] Tag current version as "prototype"

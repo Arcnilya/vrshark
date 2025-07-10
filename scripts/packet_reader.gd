@@ -19,7 +19,7 @@ class Packet:
 class EthernetHeader:
 	var src_mac : String
 	var dst_mac : String
-	var ethertype : int
+	var ethertype : String
 
 class IPHeader:
 	var src_ip : String
@@ -66,17 +66,24 @@ func read_pcap(file_path: String):
 			var eth = EthernetHeader.new()
 			eth.dst_mac = format_mac(packet_data.slice(0, 6))
 			eth.src_mac = format_mac(packet_data.slice(6, 12))
-			eth.ethertype = (packet_data[12] << 8) | packet_data[13]
+			eth.ethertype = "0x%04X" % ((packet_data[12] << 8) | packet_data[13])
 			packet.ethernet = eth
 
-			if eth.ethertype == 0x0800 and incl_len >= 34:
+			if eth.ethertype == "0x0800" and incl_len >= 34:
 				packet.ip = parse_ipv4_header(packet_data.slice(14, incl_len))
 				packet.http_method = _extract_http_method(packet)
+				
+			var ethertypes = {
+				"0x0806": " (ARP)",
+				"0x0800": " (IPv4)",
+			}
+			if eth.ethertype in ethertypes:
+				eth.ethertype += ethertypes[eth.ethertype]
 			
 		packets.append(packet)
 
 	file.close()
-	print("[+] Loaded", packets.size(), "packets!")
+	print("[+] Loaded ", packets.size(), " packets!")
 
 
 func format_mac(mac_bytes: PackedByteArray) -> String:

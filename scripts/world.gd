@@ -31,6 +31,8 @@ func _process(delta: float) -> void:
 	var hud_index = get_node("HUD/Index")
 	hud_index.text = "%s/%s" % [current_index+1, packet_reader.packets.size()]
 	if Input.is_action_just_pressed("step_forward"):
+		if is_reversed == true:
+			current_index -= 1
 		is_reversed = false
 		emit_signal("reverse_changed", is_reversed)
 		process_packet()
@@ -43,7 +45,28 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("space"):
 		is_paused = !is_paused	
 		emit_signal("pause_changed", is_paused)
-			
+	if Input.is_action_just_pressed("escape"):
+		toggle_pause()
+		
+func toggle_pause():
+	if get_tree().paused:
+		resume_game()
+	else:
+		pause_game()
+		
+func resume_game():
+		get_tree().paused = false
+		$HUD/PauseMenu.visible = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		
+func pause_game():
+		get_tree().paused = true
+		$HUD/PauseMenu.visible = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func _on_button_pressed() -> void: 
+	resume_game() # "Close" button in PauseMenu
+	
 func get_hosts(src, dst):
 	var tmp = []
 	if src in hosts:
@@ -73,7 +96,7 @@ func process_packet():
 			print("Playback complete, reached end")
 			current_index = packet_reader.packets.size()-1
 			return
-	
+
 	var pkt = packet_reader.packets[current_index]
 	if pkt.ethernet:
 		var src_mac = pkt.ethernet.src_mac
@@ -122,13 +145,13 @@ func format_pkt_info(pkt):
 	var info = []
 	if pkt.ethernet:
 		info.append("-- eth --")
-		info.append("ethertype: 0x%04x" % pkt.ethernet.ethertype)
-		info.append("src_mac: " + (pkt.ethernet.dst_mac if is_reversed else pkt.ethernet.src_mac))
-		info.append("dst_mac: " + (pkt.ethernet.src_mac if is_reversed else pkt.ethernet.dst_mac))
+		info.append("ethertype: " + pkt.ethernet.ethertype)
+		info.append("src_mac: " + (pkt.ethernet.src_mac))
+		info.append("dst_mac: " + (pkt.ethernet.dst_mac))
 	if pkt.ip:
 		info.append("-- ip --")
-		info.append("src_ip: " + (pkt.ip.dst_ip if is_reversed else pkt.ip.src_ip))
-		info.append("dst_ip: " + (pkt.ip.src_ip if is_reversed else pkt.ip.dst_ip))
+		info.append("src_ip: " + (pkt.ip.src_ip))
+		info.append("dst_ip: " + (pkt.ip.dst_ip))
 	if pkt.ip and pkt.ip.transport:
 		info.append("-- " + str(pkt.ip.transport.type).to_lower() + " --")
 		info.append("flags: " + pkt.ip.transport.tcp_flags)
