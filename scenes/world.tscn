@@ -1,17 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkv4vje5lnykv"]
+[gd_scene load_steps=5 format=3 uid="uid://bkv4vje5lnykv"]
 
 [ext_resource type="Script" uid="uid://cm7x7ixwtkgqr" path="res://scripts/world.gd" id="1_4wyf3"]
 [ext_resource type="Environment" uid="uid://k5wdkl4pr321" path="res://world.tres" id="2_k0juu"]
-[ext_resource type="Script" uid="uid://k7aocwkc4ppl" path="res://scripts/player.gd" id="3_71j4m"]
+[ext_resource type="PackedScene" uid="uid://bcx2x07qx0d78" path="res://scenes/xr_origin_3d.tscn" id="3_4wyf3"]
 
 [sub_resource type="GDScript" id="GDScript_4wyf3"]
 script/source = "extends Panel
 
 	"
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_gv5m4"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f3sb7"]
 
 [node name="world" type="Node3D"]
 script = ExtResource("1_4wyf3")
@@ -116,28 +112,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0
 use_collision = true
 size = Vector3(30, 3, 1)
 
-[node name="player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("3_71j4m")
-
-[node name="mesh" type="MeshInstance3D" parent="player"]
-visible = false
-mesh = SubResource("CapsuleMesh_gv5m4")
-
-[node name="collisionshape" type="CollisionShape3D" parent="player"]
-shape = SubResource("CapsuleShape3D_f3sb7")
-
-[node name="head" type="Node3D" parent="player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39807, 0)
-
-[node name="camera" type="Camera3D" parent="player/head"]
-
-[node name="ray" type="RayCast3D" parent="player/head/camera"]
-target_position = Vector3(0, 0, -4)
-collision_mask = 3
-debug_shape_thickness = 1
-
-[node name="hand" type="Node3D" parent="player/head/camera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+[node name="XROrigin3D" parent="." instance=ExtResource("3_4wyf3")]
 
 [connection signal="pressed" from="HUD/PauseMenu/Button" to="." method="_on_button_pressed"]

@@ -1,30 +1,23 @@
-extends CharacterBody3D
+extends XROrigin3D
 
-const WALK_SPEED = 7.0
-const SPRINT_SPEED = 11.0
-const JUMP_VELOCITY = 4.5
-const SENSITIVITY = 0.003
-const BOB_FREQ = 2.0
-const BOB_AMP = 0.05
-const BASE_FOV = 75.0
-const FOV_CHANGE = 1.01
 const HOST_SCENE = "res://scenes/host-vr.tscn"
 const PACKET_SCENE = "res://scenes/packet.tscn"
 
-var t_bob = 0.0
-var speed
+@onready var interaction = $LeftHand/RayCast3D # $head/camera/ray
+
 var selected_object
 var grabbed_object
 var showing_info: bool = false
-var grab_power = 8
 var last_host_outline: MeshInstance3D = null
 var last_packet_outline: MeshInstance3D = null
-var ctrl_pressed_last_frame = false
 
-@onready var interaction = $LeftHand/RayCast3D # $head/camera/ray
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
 
-func _physics_process(delta: float) -> void:
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
 	var collider = interaction.get_collider()
 	if collider == null:
 		if last_host_outline: last_host_outline.visible = false
