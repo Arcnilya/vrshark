@@ -28,3 +28,5 @@ pcaps/*
 !pcaps/web.pcap
 
 *.pck
+
+XR.md
