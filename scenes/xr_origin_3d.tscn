@@ -35,12 +35,13 @@ hand_material_override = SubResource("StandardMaterial3D_hg5dl")
 
 [node name="FunctionPickup" parent="LeftHand" instance=ExtResource("3_g4cwv")]
 pickup_axis_action = "trigger"
-grab_distance = 2.0
-ranged_distance = 3.5
+grab_distance = 0.15
+ranged_distance = 6.0
+ranged_angle = 15.0
 
 [node name="RayCast3D" type="RayCast3D" parent="LeftHand"]
-transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0)
-target_position = Vector3(0, -1, -2.8)
+transform = Transform3D(1, 0, 0, 0, 0.986286, -0.165048, 0, 0.165048, 0.986286, 0, 0, 0)
+target_position = Vector3(0, -1, -6)
 collision_mask = 5
 debug_shape_custom_color = Color(1, 0, 0, 1)
 
@@ -58,12 +59,13 @@ hand_material_override = SubResource("StandardMaterial3D_dd1ma")
 
 [node name="FunctionPickup" parent="RightHand" instance=ExtResource("3_g4cwv")]
 pickup_axis_action = "trigger"
-grab_distance = 2.0
-ranged_distance = 3.5
+grab_distance = 0.15
+ranged_distance = 6.0
+ranged_angle = 15.0
 
 [node name="RayCast3D" type="RayCast3D" parent="RightHand"]
-transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, -0.00139809, 0, 0)
-target_position = Vector3(0, -1, -2.8)
+transform = Transform3D(1, 0, 0, 0, 0.986415, -0.164273, 0, 0.164273, 0.986415, -0.00139809, 0, 0)
+target_position = Vector3(0, -1, -6)
 collision_mask = 5
 debug_shape_custom_color = Color(1, 0, 0, 1)
 

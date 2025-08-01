@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 		if last_host_outline:
 			last_host_outline.visible = false
 			last_host_outline = null
-	
+	"""	
 	# When left_click
 	# TODO: Implement packet details toggle
 	if selected_object != null:
@@ -52,3 +52,4 @@ func _process(delta: float) -> void:
 				outline.visible = !outline.visible
 				last_packet_outline = outline
 				selected_object = null
+	"""
