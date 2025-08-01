@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://bcx2x07qx0d78"]
+[gd_scene load_steps=12 format=3 uid="uid://bcx2x07qx0d78"]
 
-[ext_resource type="Script" uid="uid://fadbnbfwoi8o" path="res://scenes/xr_origin_3d.gd" id="1_hg5dl"]
+[ext_resource type="Script" uid="uid://fadbnbfwoi8o" path="res://scripts/xr_origin_3d.gd" id="1_hg5dl"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="1_kt5jd"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="2_0t3sa"]
+[ext_resource type="Script" uid="uid://b6ssak3oopotv" path="res://scripts/left_hand.gd" id="2_dd1ma"]
 [ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="2_j2fxx"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="2_lnt0p"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_g4cwv"]
-[ext_resource type="Script" uid="uid://c8mxjml6g7nl2" path="res://addons/godot-xr-tools/player/player_body.gd" id="3_lnt0p"]
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="4_g4cwv"]
+[ext_resource type="Script" uid="uid://cslcv8i2ia52y" path="res://scripts/right_hand.gd" id="6_4hrip"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg5dl"]
 albedo_color = Color(0, 0.403922, 1, 1)
@@ -24,6 +25,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 [node name="LeftHand" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
+script = ExtResource("2_dd1ma")
 
 [node name="MovementDirect" parent="LeftHand" instance=ExtResource("1_kt5jd")]
 strafe = true
@@ -33,10 +35,8 @@ hand_material_override = SubResource("StandardMaterial3D_hg5dl")
 
 [node name="FunctionPickup" parent="LeftHand" instance=ExtResource("3_g4cwv")]
 pickup_axis_action = "trigger"
-grab_distance = 3.0
-ranged_enable = false
-ranged_distance = 30.0
-ranged_angle = 20.0
+grab_distance = 2.0
+ranged_distance = 3.5
 
 [node name="RayCast3D" type="RayCast3D" parent="LeftHand"]
 transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0)
@@ -47,6 +47,7 @@ debug_shape_custom_color = Color(1, 0, 0, 1)
 [node name="RightHand" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
+script = ExtResource("6_4hrip")
 
 [node name="MovementTurn" parent="RightHand" instance=ExtResource("2_lnt0p")]
 turn_mode = 2
@@ -57,10 +58,8 @@ hand_material_override = SubResource("StandardMaterial3D_dd1ma")
 
 [node name="FunctionPickup" parent="RightHand" instance=ExtResource("3_g4cwv")]
 pickup_axis_action = "trigger"
-grab_distance = 3.0
-ranged_enable = false
-ranged_distance = 30.0
-ranged_angle = 20.0
+grab_distance = 2.0
+ranged_distance = 3.5
 
 [node name="RayCast3D" type="RayCast3D" parent="RightHand"]
 transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, -0.00139809, 0, 0)
@@ -68,10 +67,4 @@ target_position = Vector3(0, -1, -2.8)
 collision_mask = 5
 debug_shape_custom_color = Color(1, 0, 0, 1)
 
-[node name="PlayerBody" type="CharacterBody3D" parent="." groups=["player_body"] instance=ExtResource("2_0t3sa")]
-process_priority = -100
-process_physics_priority = -100
-top_level = true
-collision_layer = 524288
-collision_mask = 1023
-script = ExtResource("3_lnt0p")
+[node name="PlayerBody" parent="." instance=ExtResource("2_0t3sa")]
