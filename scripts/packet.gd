@@ -6,8 +6,6 @@ var playback_speed: float = 1.0
 var packet_speed: float = 5.0
 var paused: bool = false
 var reversed: bool = false
-var player: CharacterBody3D
-
 
 func move(source_host, destination_host, base_packet_speed: float, playback_speed_factor: float):
 	source = source_host

@@ -24,6 +24,8 @@ signal pose_recentered
 @export var maximum_refresh_rate : int = 90
 var xr_interface : OpenXRInterface
 var xr_is_focussed = false
+@onready var left_controller := get_node("XROrigin3D/LeftHand")
+@onready var right_controller := get_node("XROrigin3D/RightHand")
 
 
 func _ready() -> void:
@@ -46,6 +48,11 @@ func _ready() -> void:
 		xr_interface.session_focussed.connect(_on_openxr_focused_state)
 		xr_interface.session_stopping.connect(_on_openxr_stopping)
 		xr_interface.pose_recentered.connect(_on_openxr_pose_recentered)
+		
+		left_controller.ax_button_pressed.connect(_on_ax_button_left)
+		left_controller.by_button_pressed.connect(_on_by_button_left)
+		right_controller.ax_button_pressed.connect(_on_ax_button_right)
+		right_controller.by_button_pressed.connect(_on_by_button_right)
 	else:
 		# We couldn't start OpenXR.
 		print("OpenXR not instantiated!")
@@ -58,27 +65,35 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var hud_index = get_node("HUD/Index")
 	hud_index.text = "%s/%s" % [current_index+1, packet_reader.packets.size()]
-	if Input.is_action_just_pressed("step_forward"):
-		if is_packet_in_transit():
-			return
-		if is_reversed == true and current_index != -1:
-			current_index -= 1
-		is_reversed = false
-		emit_signal("reverse_changed", is_reversed)
-		process_packet()
-	if Input.is_action_just_pressed("step_backward"):
-		if is_packet_in_transit():
-			return
-		if is_reversed == false:
-			current_index += 1
-		is_reversed = true
-		emit_signal("reverse_changed", is_reversed)
-		process_packet()
-	if Input.is_action_just_pressed("space"):
-		is_paused = !is_paused	
-		emit_signal("pause_changed", is_paused)
+	
 	if Input.is_action_just_pressed("escape"):
 		toggle_pause()
+		
+func _on_by_button_left() -> void: # Step forward
+	if is_packet_in_transit():
+		return
+	if is_reversed == true and current_index != -1:
+		current_index -= 1
+	is_reversed = false
+	emit_signal("reverse_changed", is_reversed)
+	process_packet()
+	
+func _on_ax_button_left() -> void: # Step backward
+	if is_packet_in_transit():
+		return
+	if is_reversed == false:
+		current_index += 1
+	is_reversed = true
+	emit_signal("reverse_changed", is_reversed)
+	process_packet()
+	
+func _on_by_button_right() -> void: # Toggle pause/resume
+	is_paused = !is_paused	
+	emit_signal("pause_changed", is_paused)
+	
+func _on_ax_button_right() -> void:
+	print("Do nothing")
+
 		
 func is_packet_in_transit():
 	for child in get_children():
@@ -205,7 +220,6 @@ func spawn_packet(source_host, destination_host, pkt):
 	if label: label.text = "\n".join(format_pkt_info(pkt))
 	connect("pause_changed", Callable(packet, "_on_pause_changed"))
 	connect("reverse_changed", Callable(packet, "_on_reverse_changed"))
-	packet.player = $player
 	add_child(packet)
 	packet.global_position = source_host.position
 	packet.move(source_host, destination_host, packet_speed, playback_speed)

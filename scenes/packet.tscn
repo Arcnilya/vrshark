@@ -19,6 +19,7 @@ shading_mode = 0
 material = SubResource("StandardMaterial3D_ikljk")
 
 [node name="packet" type="RigidBody3D"]
+collision_layer = 0
 mass = 0.001
 gravity_scale = 0.0
 script = ExtResource("1_eg03o")
