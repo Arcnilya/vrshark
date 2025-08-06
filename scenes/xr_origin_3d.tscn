@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcx2x07qx0d78"]
+[gd_scene load_steps=13 format=3 uid="uid://bcx2x07qx0d78"]
 
 [ext_resource type="Script" uid="uid://fadbnbfwoi8o" path="res://scripts/xr_origin_3d.gd" id="1_hg5dl"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="1_kt5jd"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="2_lnt0p"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_g4cwv"]
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="4_g4cwv"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="6_2ofhi"]
 [ext_resource type="Script" uid="uid://cslcv8i2ia52y" path="res://scripts/right_hand.gd" id="6_4hrip"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg5dl"]
@@ -42,8 +43,21 @@ ranged_angle = 15.0
 [node name="RayCast3D" type="RayCast3D" parent="LeftHand"]
 transform = Transform3D(1, 0, 0, 0, 0.986286, -0.165048, 0, 0.165048, 0.986286, 0, 0, 0)
 target_position = Vector3(0, -1, -6)
-collision_mask = 5
+collision_mask = 13
 debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="ProgressLabel" type="Label3D" parent="LeftHand"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.0901878, -0.054509, 0.116183)
+billboard = 1
+text = "0/0"
+font_size = 128
+outline_size = 8
+
+[node name="FunctionPointer" parent="LeftHand" instance=ExtResource("6_2ofhi")]
+distance = 6.08
+show_laser = 0
+laser_length = 1
+collision_mask = 5242892
 
 [node name="RightHand" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
@@ -66,7 +80,14 @@ ranged_angle = 15.0
 [node name="RayCast3D" type="RayCast3D" parent="RightHand"]
 transform = Transform3D(1, 0, 0, 0, 0.986415, -0.164273, 0, 0.164273, 0.986415, -0.00139809, 0, 0)
 target_position = Vector3(0, -1, -6)
-collision_mask = 5
+collision_mask = 13
 debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="PauseLabel" type="Label3D" parent="RightHand"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.103982, -0.0487842, 0.115905)
+billboard = 1
+text = "paused"
+font_size = 128
+outline_size = 10
 
 [node name="PlayerBody" parent="." instance=ExtResource("2_0t3sa")]

@@ -19,7 +19,7 @@ shading_mode = 0
 material = SubResource("StandardMaterial3D_ikljk")
 
 [node name="packet" type="RigidBody3D"]
-collision_layer = 0
+collision_layer = 8
 mass = 0.001
 gravity_scale = 0.0
 script = ExtResource("1_eg03o")
@@ -40,7 +40,7 @@ mesh = SubResource("BoxMesh_pge5u")
 [node name="label" type="Label3D" parent="outline"]
 transform = Transform3D(3.125, 0, 0, 0, 3.125, 0, 0, 0, 3.125, 0, 1.0782, 0)
 offset = Vector2(-30, -30)
-billboard = 1
+billboard = 2
 text = "Foo"
 font_size = 20
 horizontal_alignment = 0

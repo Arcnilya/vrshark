@@ -37,7 +37,7 @@ mesh = SubResource("BoxMesh_cepxr")
 
 [node name="label" type="Label3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-billboard = 1
+billboard = 2
 text = "Foo"
 script = ExtResource("2_ia5lq")
 

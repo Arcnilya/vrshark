@@ -63,8 +63,10 @@ func _ready() -> void:
 	spawn_hosts()
 	
 func _process(delta: float) -> void:
-	var hud_index = get_node("HUD/Index")
-	hud_index.text = "%s/%s" % [current_index+1, packet_reader.packets.size()]
+	var left_label = get_node("XROrigin3D/LeftHand/ProgressLabel")
+	left_label.text = "%s/%s" % [current_index+1, packet_reader.packets.size()]
+	var right_label = get_node("XROrigin3D/RightHand/PauseLabel")
+	right_label.visible = is_paused
 	
 	if Input.is_action_just_pressed("escape"):
 		toggle_pause()
