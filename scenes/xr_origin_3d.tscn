@@ -90,4 +90,11 @@ text = "paused"
 font_size = 128
 outline_size = 10
 
+[node name="FunctionPointer" parent="RightHand" instance=ExtResource("6_2ofhi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00182843, 0, 0)
+distance = 6.08
+show_laser = 0
+laser_length = 1
+collision_mask = 5242892
+
 [node name="PlayerBody" parent="." instance=ExtResource("2_0t3sa")]
