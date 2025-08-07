@@ -9,6 +9,7 @@ signal reverse_changed(reversed: bool)
 
 var packet_reader = PacketReader.new()
 var hosts = {} # Stored MAC -> host instance mapping
+var hosts_location = {}
 var current_index = -1
 var is_paused = false
 var is_reversed = false
@@ -67,9 +68,12 @@ func _process(delta: float) -> void:
 	left_label.text = "%s/%s" % [current_index+1, packet_reader.packets.size()]
 	var right_label = get_node("XROrigin3D/RightHand/PauseLabel")
 	right_label.visible = is_paused
-	
 	if Input.is_action_just_pressed("escape"):
 		toggle_pause()
+	for host in hosts_location:
+		if hosts_location[host].distance_to(host.position) > 35.0:
+			host.position = hosts_location[host]
+	
 		
 func _on_by_button_left() -> void: # Step forward
 	if is_packet_in_transit():
@@ -190,6 +194,7 @@ func spawn_hosts():
 		host.position = Vector3(5.0*cos(angle), 0.3, 5.0*sin(angle))
 		add_child(host)
 		hosts[src_mac] = host
+		hosts_location[host] = host.position
 		
 func format_pkt_info(pkt):
 	var info = []
