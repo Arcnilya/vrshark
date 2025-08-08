@@ -6,12 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="4_5hao0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ia5lq"]
+size = Vector3(0.4, 0.4, 0.4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cs3mx"]
 albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5hao0"]
 material = SubResource("StandardMaterial3D_cs3mx")
+size = Vector3(0.4, 0.4, 0.4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5hao0"]
 cull_mode = 1
@@ -19,9 +21,12 @@ shading_mode = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_cepxr"]
 material = SubResource("StandardMaterial3D_5hao0")
+size = Vector3(0.4, 0.4, 0.4)
 
 [node name="PickableObject" instance=ExtResource("1_8wrje")]
-mass = 7.0
+mass = 0.001
+gravity_scale = 0.0
+freeze = true
 second_hand_grab = 1
 
 [node name="CollisionShape3D" parent="." index="0"]
@@ -36,15 +41,15 @@ visible = false
 mesh = SubResource("BoxMesh_cepxr")
 
 [node name="label" type="Label3D" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314155, 0)
 billboard = 2
 text = "Foo"
 script = ExtResource("2_ia5lq")
 
 [node name="GrabPointHandLeft" parent="." index="4" instance=ExtResource("3_cepxr")]
-transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, -1, 0, 2)
+transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, -0.2, 0, 0.3)
 visible = true
 
 [node name="GrabPointHandRight" parent="." index="5" instance=ExtResource("4_5hao0")]
-transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, 1, 0, 2)
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, 0.2, 0, 0.3)
 visible = true

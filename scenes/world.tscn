@@ -97,66 +97,51 @@ file_mode = 0
 access = 2
 
 [node name="light" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.43122, 0.902247, 0, -0.902247, 0.43122, 0, 9.02499, 4.99424)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 28.955, 0)
 
 [node name="environment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_k0juu")
 
-[node name="floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
-use_collision = true
-size = Vector3(30, 4, 30)
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 15)
 
-[node name="wall1" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 15)
-use_collision = true
-size = Vector3(30, 6, 1)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="wall1"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="wall1/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
 shape = SubResource("BoxShape3D_k0juu")
 
-[node name="wall2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -15)
-use_collision = true
-size = Vector3(30, 6, 1)
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, -15)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="wall2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="wall2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
 shape = SubResource("BoxShape3D_71j4m")
 
-[node name="wall3" type="CSGBox3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 2, 0)
-use_collision = true
-size = Vector3(30, 6, 1)
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, -4, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="wall3"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="wall3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
 shape = SubResource("BoxShape3D_4wyf3")
 
-[node name="wall4" type="CSGBox3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 2, 0)
-use_collision = true
-size = Vector3(30, 6, 1)
+[node name="StaticBody3D4" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, -4, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="wall4"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="wall4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
 shape = SubResource("BoxShape3D_qfnet")
 
 [node name="XROrigin3D" parent="." instance=ExtResource("3_4wyf3")]
 
 [node name="roof" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="roof"]
+shape = SubResource("BoxShape3D_i7141")
+
+[node name="floor2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor2"]
 shape = SubResource("BoxShape3D_i7141")
 
 [connection signal="pressed" from="HUD/PauseMenu/Button" to="." method="_on_button_pressed"]

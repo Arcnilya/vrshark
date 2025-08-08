@@ -1,6 +1,6 @@
 extends Label3D
 
-@export var height_offset: float = 1.0
+@export var height_offset: float = 0.4
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:

@@ -32,6 +32,7 @@ script = ExtResource("2_dd1ma")
 strafe = true
 
 [node name="LeftHand" parent="LeftHand" instance=ExtResource("2_j2fxx")]
+visible = false
 hand_material_override = SubResource("StandardMaterial3D_hg5dl")
 
 [node name="FunctionPickup" parent="LeftHand" instance=ExtResource("3_g4cwv")]
@@ -69,6 +70,7 @@ turn_mode = 2
 smooth_turn_speed = 3.0
 
 [node name="RightHand" parent="RightHand" instance=ExtResource("4_g4cwv")]
+visible = false
 hand_material_override = SubResource("StandardMaterial3D_dd1ma")
 
 [node name="FunctionPickup" parent="RightHand" instance=ExtResource("3_g4cwv")]

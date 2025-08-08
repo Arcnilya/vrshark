@@ -54,6 +54,8 @@ func _ready() -> void:
 		left_controller.by_button_pressed.connect(_on_by_button_left)
 		right_controller.ax_button_pressed.connect(_on_ax_button_right)
 		right_controller.by_button_pressed.connect(_on_by_button_right)
+		
+		switch_to_ar()
 	else:
 		# We couldn't start OpenXR.
 		print("OpenXR not instantiated!")
@@ -98,7 +100,11 @@ func _on_by_button_right() -> void: # Toggle pause/resume
 	emit_signal("pause_changed", is_paused)
 	
 func _on_ax_button_right() -> void:
-	print("Do nothing")
+	# Toggle host mesh visibility
+	for host in hosts_location:
+		var mesh = host.get_node_or_null("MeshInstance3D")
+		if mesh:
+			mesh.visible = !mesh.visible
 
 		
 func is_packet_in_transit():
@@ -191,7 +197,7 @@ func spawn_hosts():
 		var label = host.get_node("label")
 		if label: label.text = "%s\n%s" % [src_ip, src_mac]
 		var angle = (TAU / host_keys.size()) * i
-		host.position = Vector3(5.0*cos(angle), 0.3, 5.0*sin(angle))
+		host.position = Vector3(2.0*cos(angle), 0.3, 2.0*sin(angle))
 		add_child(host)
 		hosts[src_mac] = host
 		hosts_location[host] = host.position
@@ -288,3 +294,40 @@ func _on_openxr_pose_recentered() -> void:
 	# User recentered view, we have to react to this by recentering the view.
 	# This is game implementation dependent.
 	emit_signal("pose_recentered")
+
+
+@onready var viewport : Viewport = get_viewport()
+@onready var environment : Environment = $environment.environment
+#$WorldEnvironment.environment
+
+func switch_to_ar() -> bool:
+	var xr_interface: XRInterface = XRServer.primary_interface
+	if xr_interface:
+		var modes = xr_interface.get_supported_environment_blend_modes()
+		if XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND in modes:
+			xr_interface.environment_blend_mode = XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND
+			viewport.transparent_bg = true
+		elif XRInterface.XR_ENV_BLEND_MODE_ADDITIVE in modes:
+			xr_interface.environment_blend_mode = XRInterface.XR_ENV_BLEND_MODE_ADDITIVE
+			viewport.transparent_bg = false
+	else:
+		return false
+
+	environment.background_mode = Environment.BG_COLOR
+	environment.background_color = Color(0.0, 0.0, 0.0, 0.0)
+	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	return true
+
+func switch_to_vr() -> bool:
+	var xr_interface: XRInterface = XRServer.primary_interface
+	if xr_interface:
+		var modes = xr_interface.get_supported_environment_blend_modes()
+		if XRInterface.XR_ENV_BLEND_MODE_OPAQUE in modes:
+			xr_interface.environment_blend_mode = XRInterface.XR_ENV_BLEND_MODE_OPAQUE
+		else:
+			return false
+
+	viewport.transparent_bg = false
+	environment.background_mode = Environment.BG_SKY
+	environment.ambient_light_source = Environment.AMBIENT_SOURCE_BG
+	return true
