@@ -25,24 +25,24 @@ gravity_scale = 0.0
 script = ExtResource("1_eg03o")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
 shape = SubResource("BoxShape3D_eg03o")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
 mesh = SubResource("BoxMesh_0sr6c")
 
 [node name="outline" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
-visible = false
+transform = Transform3D(0.135, 0, 0, 0, 0.135, 0, 0, 0, 0.135, 0, 0, 0)
 mesh = SubResource("BoxMesh_pge5u")
 
 [node name="label" type="Label3D" parent="outline"]
-transform = Transform3D(3.125, 0, 0, 0, 3.125, 0, 0, 0, 3.125, 0, 1.0782, 0)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.296221, 0.754246, 0)
 offset = Vector2(-30, -30)
 billboard = 2
 text = "Foo"
-font_size = 20
+font_size = 128
+outline_size = 20
 horizontal_alignment = 0
 vertical_alignment = 2
 script = ExtResource("2_t2q2w")
