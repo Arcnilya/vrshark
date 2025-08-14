@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bkv4vje5lnykv"]
+[gd_scene load_steps=11 format=3 uid="uid://bkv4vje5lnykv"]
 
 [ext_resource type="Script" uid="uid://cm7x7ixwtkgqr" path="res://scripts/world.gd" id="1_4wyf3"]
 [ext_resource type="Environment" uid="uid://k5wdkl4pr321" path="res://world.tres" id="2_k0juu"]
-[ext_resource type="PackedScene" uid="uid://bcx2x07qx0d78" path="res://scenes/xr_origin_3d.tscn" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://bx8fynt1maka" path="res://scenes/xr_origin_3d_hand_tracking.tscn" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://cknw58llj0nio" path="res://scenes/yellow_ball.tscn" id="4_k0juu"]
 
 [sub_resource type="GDScript" id="GDScript_4wyf3"]
 script/source = "extends Panel
@@ -130,8 +131,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, -
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
 shape = SubResource("BoxShape3D_qfnet")
 
-[node name="XROrigin3D" parent="." instance=ExtResource("3_4wyf3")]
-
 [node name="roof" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, 0)
 
@@ -143,5 +142,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor2"]
 shape = SubResource("BoxShape3D_i7141")
+
+[node name="XROrigin3D" parent="." instance=ExtResource("3_4wyf3")]
+
+[node name="RigidBody3D" parent="." instance=ExtResource("4_k0juu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.209699, -0.694426)
 
 [connection signal="pressed" from="HUD/PauseMenu/Button" to="." method="_on_button_pressed"]

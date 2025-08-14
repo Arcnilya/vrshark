@@ -50,10 +50,11 @@ func _ready() -> void:
 		xr_interface.session_stopping.connect(_on_openxr_stopping)
 		xr_interface.pose_recentered.connect(_on_openxr_pose_recentered)
 		
-		left_controller.ax_button_pressed.connect(_on_ax_button_left)
-		left_controller.by_button_pressed.connect(_on_by_button_left)
-		right_controller.ax_button_pressed.connect(_on_ax_button_right)
-		right_controller.by_button_pressed.connect(_on_by_button_right)
+		# For controllers
+		#left_controller.ax_button_pressed.connect(_on_ax_button_left)
+		#left_controller.by_button_pressed.connect(_on_by_button_left)
+		#right_controller.ax_button_pressed.connect(_on_ax_button_right)
+		#right_controller.by_button_pressed.connect(_on_by_button_right)
 		
 		switch_to_ar()
 	else:
@@ -66,10 +67,13 @@ func _ready() -> void:
 	spawn_hosts()
 	
 func _process(delta: float) -> void:
+	# For controllers
+	"""
 	var left_label = get_node("XROrigin3D/LeftHand/ProgressLabel")
 	left_label.text = "%s/%s" % [current_index+1, packet_reader.packets.size()]
 	var right_label = get_node("XROrigin3D/RightHand/PauseLabel")
 	right_label.visible = is_paused
+	"""
 	if Input.is_action_just_pressed("escape"):
 		toggle_pause()
 	for host in hosts_location:
@@ -197,7 +201,7 @@ func spawn_hosts():
 		var label = host.get_node("label")
 		if label: label.text = "%s\n%s" % [src_ip, src_mac]
 		var angle = (TAU / host_keys.size()) * i
-		host.position = Vector3(2.0*cos(angle), 0.3, 2.0*sin(angle))
+		host.position = Vector3(2.0*cos(angle), 0.4, 2.0*sin(angle))
 		add_child(host)
 		hosts[src_mac] = host
 		hosts_location[host] = host.position

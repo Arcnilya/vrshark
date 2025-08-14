@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cknw58llj0nio"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vpiva"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rdda4"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2jt7e"]
+material = SubResource("StandardMaterial3D_rdda4")
+
+[node name="RigidBody3D" type="RigidBody3D" groups=["grabbable"]]
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+shape = SubResource("SphereShape3D_vpiva")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("SphereMesh_2jt7e")

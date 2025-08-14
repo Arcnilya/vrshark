@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx8fynt1maka"]
+
+[ext_resource type="Script" uid="uid://cvje3d4aa78m6" path="res://scripts/grab_detector.gd" id="1_8difr"]
+[ext_resource type="Script" uid="uid://cwgg7axqiy0wd" path="res://scripts/xr_origin_3d_hand_tracking.gd" id="1_nbj8o"]
+[ext_resource type="Script" uid="uid://b1hh7uhs81b5k" path="res://scripts/hand_grabber.gd" id="2_8difr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nbj8o"]
+radius = 0.1
+
+[node name="XROrigin3D" type="XROrigin3D"]
+script = ExtResource("1_nbj8o")
+
+[node name="GrabDetector" type="Node" parent="."]
+script = ExtResource("1_8difr")
+curl_threshold = 0.5
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="LeftAim" type="XRController3D" parent="."]
+tracker = &"/user/fbhandaim/left"
+script = ExtResource("2_8difr")
+
+[node name="GrabAnchor" type="Node3D" parent="LeftAim"]
+
+[node name="GrabArea" type="Area3D" parent="LeftAim/GrabAnchor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftAim/GrabAnchor/GrabArea"]
+shape = SubResource("SphereShape3D_nbj8o")
+
+[node name="LeftHand" type="XRNode3D" parent="."]
+tracker = &"/user/hand_tracker/left"
+
+[node name="OpenXRFbHandTrackingMesh" type="OpenXRFbHandTrackingMesh" parent="LeftHand"]
+visible = false
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="LeftHand/OpenXRFbHandTrackingMesh"]
+
+[node name="RightAim" type="XRController3D" parent="."]
+tracker = &"/user/fbhandaim/right"
+script = ExtResource("2_8difr")
+
+[node name="GrabAnchor" type="Node3D" parent="RightAim"]
+
+[node name="GrabArea" type="Area3D" parent="RightAim/GrabAnchor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightAim/GrabAnchor/GrabArea"]
+shape = SubResource("SphereShape3D_nbj8o")
+
+[node name="RightHand" type="XRNode3D" parent="."]
+tracker = &"/user/hand_tracker/right"
+
+[node name="OpenXRFbHandTrackingMesh" type="OpenXRFbHandTrackingMesh" parent="RightHand"]
+hand = 1
+visible = false
+bones/0/name = "RightPalm"
+bones/1/name = "RightHand"
+bones/2/name = "RightThumbMetacarpal"
+bones/3/name = "RightThumbProximal"
+bones/4/name = "RightThumbDistal"
+bones/5/name = "RightThumbTip"
+bones/6/name = "RightIndexMetacarpal"
+bones/7/name = "RightIndexProximal"
+bones/8/name = "RightIndexIntermediate"
+bones/9/name = "RightIndexDistal"
+bones/10/name = "RightIndexTip"
+bones/11/name = "RightMiddleMetacarpal"
+bones/12/name = "RightMiddleProximal"
+bones/13/name = "RightMiddleIntermediate"
+bones/14/name = "RightMiddleDistal"
+bones/15/name = "RightMiddleTip"
+bones/16/name = "RightRingMetacarpal"
+bones/17/name = "RightRingProximal"
+bones/18/name = "RightRingIntermediate"
+bones/19/name = "RightRingDistal"
+bones/20/name = "RightRingTip"
+bones/21/name = "RightLittleMetacarpal"
+bones/22/name = "RightLittleProximal"
+bones/23/name = "RightLittleIntermediate"
+bones/24/name = "RightLittleDistal"
+bones/25/name = "RightLittleTip"
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="RightHand/OpenXRFbHandTrackingMesh"]
+hand_tracker = &"/user/hand_tracker/right"
