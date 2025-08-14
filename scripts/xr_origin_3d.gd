@@ -20,6 +20,9 @@ func _ready() -> void:
 func vibrate(controllers) -> void:
 	for controller in controllers:
 		controller.trigger_haptic_pulse("haptic", 30, 0.3, 0.1, 0.0)
+		
+func is_laser_on(controllers) -> bool:
+	return controllers.any(func(c): return c.show_laser)
 
 func process_collider_outline() -> void:
 	var obj_collider: Node3D = null
@@ -35,7 +38,7 @@ func process_collider_outline() -> void:
 		obj_collider = collider
 		interactions.append($RightHand)
 			
-	if obj_collider:
+	if obj_collider and is_laser_on(interactions):
 		var outline = obj_collider.get_node_or_null("outline")
 		if outline:
 			if last_outline:

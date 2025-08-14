@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcx2x07qx0d78"]
+[gd_scene load_steps=15 format=3 uid="uid://bcx2x07qx0d78"]
 
 [ext_resource type="Script" uid="uid://fadbnbfwoi8o" path="res://scripts/xr_origin_3d.gd" id="1_hg5dl"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="1_kt5jd"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="4_g4cwv"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="6_2ofhi"]
 [ext_resource type="Script" uid="uid://cslcv8i2ia52y" path="res://scripts/right_hand.gd" id="6_4hrip"]
+[ext_resource type="PackedScene" uid="uid://bu07alt6vkbaq" path="res://addons/godot-xr-tools/hands/model/Hand_Glove_L.gltf" id="11_xllm5"]
+[ext_resource type="PackedScene" uid="uid://w7th3d2hl7b5" path="res://addons/godot-xr-tools/hands/model/Hand_Glove_R.gltf" id="12_tydbt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg5dl"]
 albedo_color = Color(0, 0.403922, 1, 1)
@@ -60,6 +62,18 @@ show_laser = 0
 laser_length = 1
 collision_mask = 5242892
 
+[node name="HelpButtonY" type="Label3D" parent="LeftHand"]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0.0558007, 0.0315568, 0.0530553)
+billboard = 1
+text = "Y: Next packet"
+font_size = 128
+
+[node name="HelpButtonX" type="Label3D" parent="LeftHand"]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0.0523083, 0.0294882, 0.0792572)
+billboard = 1
+text = "X: Prev packet"
+font_size = 128
+
 [node name="RightHand" type="XRController3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
@@ -99,4 +113,26 @@ show_laser = 0
 laser_length = 1
 collision_mask = 5242892
 
+[node name="HelpButtonB" type="Label3D" parent="RightHand"]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, -0.0422002, 0.0319999, 0.053)
+billboard = 1
+text = "Pause: B"
+font_size = 128
+
+[node name="HelpButtonA" type="Label3D" parent="RightHand"]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, -0.0405211, 0.0234993, 0.0799875)
+billboard = 1
+text = "Hide: A"
+font_size = 128
+
 [node name="PlayerBody" parent="." instance=ExtResource("2_0t3sa")]
+
+[node name="LeftHandTracking" type="XRNode3D" parent="."]
+tracker = &"/user/hand_tracker/left"
+
+[node name="Hand_Glove_L" parent="LeftHandTracking" instance=ExtResource("11_xllm5")]
+
+[node name="RightHandTracking" type="XRNode3D" parent="."]
+tracker = &"/user/hand_tracker/right"
+
+[node name="Hand_Glove_R" parent="RightHandTracking" instance=ExtResource("12_tydbt")]
